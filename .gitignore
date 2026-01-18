@@ -1,0 +1,5 @@
+.env
+.env.dusk
+/vendor
+/node_modules
+/workbench
