@@ -4,7 +4,7 @@ This package publishes an agent skill folder into multiple locations to support 
 
 ## Install (Laravel)
 ```bash
-composer require fperdomo/laravel-best-practices-skill-installer --dev
+composer require fperdomo/laravel-agent-skill --dev
 ```
 
 ## Usage

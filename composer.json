@@ -1,5 +1,5 @@
 {
-    "name": "fperdomo/laravel-best-practices-skill-installer",
+    "name": "fperdomo/laravel-agent-skill",
     "description": "Publishes a Codex-friendly agent skill: skills/laravel-best-practices",
     "type": "library",
     "license": "MIT",
