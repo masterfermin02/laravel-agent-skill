@@ -276,5 +276,118 @@
       "repo": "internal/inertia-guidelines",
       "topic": "Import conventions and file casing"
     }
+  },
+  {
+    "id": "INRT-VUE-001",
+    "title": "Inertia + Vue app: follow the resources/js directory conventions",
+    "severity_default": "medium",
+    "signals": [
+      "Mixing generic design-system components with app-specific feature code in the same folders",
+      "Unclear boundaries between cross-app components and feature modules"
+    ],
+    "recommended_pattern": [
+      "Keep shared UI primitives and low-level helpers under resources/js/common",
+      "Put domain/feature code under resources/js/modules",
+      "Place Inertia-rendered pages in resources/js/pages and keep the structure close to URL paths",
+      "Keep auto-generated or third-party components (e.g. headless UI kit, design-system pieces) in resources/js/lib and wrap/abstract them into common when needed"
+    ],
+    "examples": {
+      "bad": "A project-wide Button component and a posts feature component both living in the same folder",
+      "good": "resources/js/common/button/Button.vue for the design primitive; resources/js/modules/posts/components/PostCard.vue for feature-specific UI"
+    },
+    "reference": {
+      "repo": "internal/inertia-guidelines",
+      "topic": "JavaScript application structure for Inertia + Vue"
+    }
+  },
+  {
+    "id": "INRT-VUE-002",
+    "title": "Page components: suffix with 'Page' and default-export the component",
+    "severity_default": "high",
+    "signals": [
+      "Page components named generically (Index.vue) or exported inconsistently",
+      "Routing and Inertia lookup failing due to inconsistent export shapes"
+    ],
+    "recommended_pattern": [
+      "Suffix Inertia-rendered components with 'Page' (e.g. PostsIndexPage.vue)",
+      "Use a default export for page components so Inertia can reliably resolve them (using <script setup> or export default)",
+      "Keep only page-level code in page files — helpers/components should live in subdirectories"
+    ],
+    "examples": {
+      "bad": "export const PostsIndex = { /* ... */ } // named export and missing Page suffix",
+      "good": "<script setup>\n// PostsIndexPage.vue\n</script>\n\n<!-- default export via script setup compiles to the default component -->\n<!-- or: export default defineComponent({ name: 'PostsIndexPage', ... }) -->"
+    },
+    "reference": {
+      "repo": "internal/inertia-guidelines",
+      "topic": "Page component naming and exports for Vue"
+    }
+  },
+  {
+    "id": "INRT-VUE-003",
+    "title": "Component files: one component per file, PascalCase for components, prefer <script setup>",
+    "severity_default": "medium",
+    "signals": [
+      "Multiple components declared and exported from a single file",
+      "Component file named in camelCase or kebab-case",
+      "Large anonymous options objects making debugging harder"
+    ],
+    "recommended_pattern": [
+      "One component per .vue file, named using PascalCase (Button.vue)",
+      "Prefer <script setup> and composition API for new components; use defineProps/defineEmits for clear typings",
+      "Keep non-component utilities as .ts/.js files in camelCase; directories in kebab-case",
+      "Group composables in resources/js/common/composables or resources/js/modules/<feature>/composables"
+    ],
+    "examples": {
+      "bad": "// components with multiple related subcomponents in one file",
+      "good": "resources/js/common/button/Button.vue // single SFC component using <script setup>"
+    },
+    "reference": {
+      "repo": "internal/inertia-guidelines",
+      "topic": "Vue component file organization and naming"
+    }
+  },
+  {
+    "id": "INRT-VUE-004",
+    "title": "Treat third-party UI library components as low-level primitives and wrap them",
+    "severity_default": "low",
+    "signals": [
+      "Direct, widespread imports of low-level library components across the app",
+      "Repeated ad-hoc styling or API adaptations in multiple places instead of a single wrapper"
+    ],
+    "recommended_pattern": [
+      "Keep third-party or generated components under resources/js/lib or resources/js/vendor",
+      "Create thin, well-named wrappers in resources/js/common when you need a project-friendly API or default styling",
+      "Avoid modifying upstream library sources — prefer wrapping so upgrades remain simple"
+    ],
+    "examples": {
+      "bad": "import { Dropdown } from 'some-ui-lib' in many files and adapt props every time",
+      "good": "Create resources/js/common/dropdown/Dropdown.vue that wraps the library and exposes a simpler props API"
+    },
+    "reference": {
+      "repo": "internal/inertia-guidelines",
+      "topic": "Managing third-party UI components in Vue apps"
+    }
+  },
+  {
+    "id": "INRT-VUE-005",
+    "title": "Imports, file casing, and barrel files (Vue)",
+    "severity_default": "low",
+    "signals": [
+      "Using barrel (index) files to re-export many modules, causing indirection",
+      "Inconsistent import paths (relative vs alias) and mixed casing in filenames"
+    ],
+    "recommended_pattern": [
+      "Avoid barrel files; import components and utilities directly by their absolute aliased path (e.g. @/common/button/Button.vue)",
+      "Use PascalCase for component filenames, camelCase for helper files, and kebab-case for directory names",
+      "Keep imports grouped: external libraries first, then application imports; prefer alias paths configured in the build tool"
+    ],
+    "examples": {
+      "bad": "import { Button } from '@/common' // ambiguous barrel import",
+      "good": "import Button from '@/common/button/Button.vue' // explicit, single-source import"
+    },
+    "reference": {
+      "repo": "internal/inertia-guidelines",
+      "topic": "Import conventions and file casing for Vue"
+    }
   }
 ]

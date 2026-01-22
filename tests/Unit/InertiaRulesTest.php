@@ -14,4 +14,11 @@ test('rulebook contains new Inertia rules', function () {
     expect($ids)->toContain('INRT-003');
     expect($ids)->toContain('INRT-004');
     expect($ids)->toContain('INRT-005');
+
+    // Vue-specific Inertia rules should also be present
+    expect($ids)->toContain('INRT-VUE-001');
+    expect($ids)->toContain('INRT-VUE-002');
+    expect($ids)->toContain('INRT-VUE-003');
+    expect($ids)->toContain('INRT-VUE-004');
+    expect($ids)->toContain('INRT-VUE-005');
 });
