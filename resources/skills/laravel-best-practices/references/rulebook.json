@@ -164,5 +164,117 @@
       "repo": "alexeymezenin/laravel-best-practices",
       "topic": "Chunk data for processing"
     }
+  },
+  {
+    "id": "INRT-001",
+    "title": "Inertia app: follow the resources/js directory conventions",
+    "severity_default": "medium",
+    "signals": [
+      "Mixing generic design-system components with app-specific feature code in the same folders",
+      "Unclear boundaries between cross-app components and feature modules"
+    ],
+    "recommended_pattern": [
+      "Keep shared UI primitives and low-level helpers under resources/js/common",
+      "Put domain/feature code under resources/js/modules",
+      "Place Inertia-rendered pages in resources/js/pages and keep the structure close to URL paths",
+      "Keep shadcn generated components in resources/js/shadcn and wrap/abstract them into common when needed"
+    ],
+    "examples": {
+      "bad": "A project-wide Button component and a posts feature component both living in the same folder",
+      "good": "resources/js/common/button/Button.tsx for the design primitive; resources/js/modules/posts/components/PostCard.tsx for feature-specific UI"
+    },
+    "reference": {
+      "repo": "internal/inertia-guidelines",
+      "topic": "JavaScript application structure for Inertia + React"
+    }
+  },
+  {
+    "id": "INRT-002",
+    "title": "Page components: suffix with 'Page' and default-export the component",
+    "severity_default": "high",
+    "signals": [
+      "Page components named generically (Index.tsx) or exported as named exports",
+      "Routing and Inertia lookup failing due to inconsistent default exports"
+    ],
+    "recommended_pattern": [
+      "Suffix Inertia-rendered components with 'Page' (e.g. PostsIndexPage.tsx)",
+      "Use a default export for page components so Inertia can reliably resolve them",
+      "Keep only page-level code in page files — helpers/components should live in subdirectories"
+    ],
+    "examples": {
+      "bad": "export function PostsIndex() { ... } // named export and missing Page suffix",
+      "good": "export default function PostsIndexPage() { ... } // default export and Page suffix"
+    },
+    "reference": {
+      "repo": "internal/inertia-guidelines",
+      "topic": "Page component naming and exports"
+    }
+  },
+  {
+    "id": "INRT-003",
+    "title": "Component files: one component per file, PascalCase for components, prefer function declarations",
+    "severity_default": "medium",
+    "signals": [
+      "Multiple components declared and exported from a single file",
+      "Component file named in camelCase or kebab-case",
+      "Components declared as const anonymous arrow functions making stack traces less obvious"
+    ],
+    "recommended_pattern": [
+      "One component per file, named and exported (named export) using PascalCase",
+      "Prefer function declarations (export function Button() { ... }) over const arrow assignments for components",
+      "Keep non-component utilities in camelCase filenames, directories in kebab-case"
+    ],
+    "examples": {
+      "bad": "const Button = () => { ... }; const Card = () => { ... }; export { Button, Card };",
+      "good": "export function Button() { ... } // Button.tsx (single, named export)"
+    },
+    "reference": {
+      "repo": "internal/inertia-guidelines",
+      "topic": "Component file organization and naming"
+    }
+  },
+  {
+    "id": "INRT-004",
+    "title": "Treat shadcn-generated components as low-level primitives and wrap them",
+    "severity_default": "low",
+    "signals": [
+      "Direct, widespread imports of shadcn components across the app",
+      "Repeated ad-hoc styling or API adaptations in multiple places instead of a single wrapper"
+    ],
+    "recommended_pattern": [
+      "Keep shadcn components under resources/js/shadcn",
+      "Create thin, well-named wrappers in resources/js/common when you need a project-friendly API or default styling",
+      "Avoid modifying generated shadcn sources beyond small style adjustments — prefer wrapping so upgrades remain simple"
+    ],
+    "examples": {
+      "bad": "import { Select } from '@/shadcn/select' in many files and adapt props every time",
+      "good": "Create resources/js/common/components/FruitSelect/FruitSelect.tsx that wraps the shadcn Select and exposes a simple options prop"
+    },
+    "reference": {
+      "repo": "internal/inertia-guidelines",
+      "topic": "Managing shadcn/generated components"
+    }
+  },
+  {
+    "id": "INRT-005",
+    "title": "Imports, file casing, and barrel files",
+    "severity_default": "low",
+    "signals": [
+      "Using barrel (index) files to re-export many modules, causing indirection",
+      "Inconsistent import paths (relative vs alias) and mixed casing in filenames"
+    ],
+    "recommended_pattern": [
+      "Avoid barrel files; import components and utilities directly by their absolute aliased path",
+      "Use PascalCase for component filenames, camelCase for helper files, and kebab-case for directory names",
+      "Keep imports grouped: external libraries first, then application imports; use absolute aliased paths for app imports"
+    ],
+    "examples": {
+      "bad": "import { Button } from '@/common' // ambiguous barrel import",
+      "good": "import { Button } from '@/common/button/Button' // explicit, single-source import"
+    },
+    "reference": {
+      "repo": "internal/inertia-guidelines",
+      "topic": "Import conventions and file casing"
+    }
   }
 ]
