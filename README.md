@@ -1,26 +1,52 @@
 # Laravel Best Practices Skill Installer
 
-This package publishes an agent skill folder into multiple locations to support various AI agents and editors.
+This package publishes an AI agent skill covering Laravel best practices — including Inertia + React conventions — into multiple locations to support various AI agents and editors.
 
-## Install (Laravel)
+## Install
+
 ```bash
 composer require fperdomo/laravel-agent-skill --dev
 ```
 
 ## Usage
 
-### Quick Install - Everything
+### Quick install — everything
+
 ```bash
-# Install all adapters and primary skill location
 php artisan lbpa:install
 
 # Overwrite existing files
 php artisan lbpa:install --force
 ```
 
-### Publish Skills to Different Locations
+### Laravel Boost (recommended)
 
-**Project workspace (primary location):**
+If your project uses [Laravel Boost](https://laravel.com/docs/12.x/boost), the skill is auto-discovered and installed when you run:
+
+```bash
+php artisan boost:install
+```
+
+To keep skills up-to-date when dependencies are updated, add this to your project's `composer.json`:
+
+```json
+"scripts": {
+    "post-update-cmd": [
+        "@php artisan boost:update --ansi"
+    ]
+}
+```
+
+To publish manually to the Boost location (`.ai/skills/`):
+
+```bash
+php artisan vendor:publish --tag=lbpa-boost
+# Publishes to: .ai/skills/laravel-best-practices/ and .ai/skills/inertia-development/
+```
+
+### Publish to Codex skill locations
+
+**Project workspace (primary):**
 ```bash
 php artisan vendor:publish --tag=lbpa-skill
 # Publishes to: .codex/skills/laravel-best-practices/
@@ -32,7 +58,7 @@ php artisan vendor:publish --tag=lbpa-skill-home
 # Publishes to: ~/.codex/skills/laravel-best-practices/
 ```
 
-**VS Code specific location:**
+**VS Code:**
 ```bash
 php artisan vendor:publish --tag=lbpa-skill-vscode
 # Publishes to: .vscode/codex/skills/laravel-best-practices/
@@ -44,56 +70,89 @@ php artisan vendor:publish --tag=lbpa-skill-jetbrains
 # Publishes to: .idea/codex/skills/laravel-best-practices/
 ```
 
-**All skill locations at once:**
+**All Codex locations at once:**
 ```bash
 php artisan vendor:publish --tag=lbpa-skill-all
-# Publishes to: project, home, vscode, and jetbrains locations
 ```
 
-### Publish AI Agent Adapters
+### Publish AI agent adapters
 
-**Claude adapter:**
 ```bash
-php artisan vendor:publish --tag=lbpa-claude
-# Publishes to: CLAUDE.md
+php artisan vendor:publish --tag=lbpa-claude    # → CLAUDE.md
+php artisan vendor:publish --tag=lbpa-copilot   # → .github/copilot-instructions.md
+php artisan vendor:publish --tag=lbpa-agents    # → AGENTS.md
 ```
 
-**GitHub Copilot adapter:**
-```bash
-php artisan vendor:publish --tag=lbpa-copilot
-# Publishes to: .github/copilot-instructions.md
-```
-
-**Generic agents documentation:**
-```bash
-php artisan vendor:publish --tag=lbpa-agents
-# Publishes to: AGENTS.md
-```
-
-**All adapters + primary skill:**
+**Everything (all adapters + all skill locations):**
 ```bash
 php artisan vendor:publish --tag=lbpa-all
-# Publishes everything to standard locations
 ```
 
-## Published Structure
+## What's included
 
-After publishing, your repository will contain:
-- `.codex/skills/laravel-best-practices/SKILL.md`
-- `.codex/skills/laravel-best-practices/references/*`
-- `.codex/skills/laravel-best-practices/scripts/*`
-- AI agent adapter files (CLAUDE.md, .github/copilot-instructions.md, AGENTS.md)
+### Backend rules
 
-## Where AI Agents Look for Skills
+| ID | Rule | Severity |
+|----|------|----------|
+| SRP-001 | Single Responsibility Principle | high |
+| FUNC-001 | Methods should do one thing | medium |
+| MVC-001 | Skinny controllers; move logic out | high |
+| VAL-001 | Validation in FormRequest classes | **critical** |
+| SVC-001 | Business logic in service/action classes | high |
+| AUTH-001 | Use Policies for authorization | high |
+| CONF-001 | Never call `env()` outside config files | high |
+| DRY-001 | Don't repeat yourself | medium |
+| ELO-001 | Prefer Eloquent + Collections (`sole()`, `firstOrCreate()`, casts) | low |
+| BLADE-001 | No queries in Blade; eager load to avoid N+1 | **critical** |
+| PERF-001 | Chunk/stream large dataset operations | medium |
+| NAMING-001 | Follow Laravel naming conventions | medium |
 
-Different AI agents and editors check for skills in various locations:
+### Inertia + React rules
 
-1. **Project Workspace** (`.codex/skills/`) - Most common, project-specific
-2. **User Home** (`~/.codex/skills/`) - Global, shared across all projects
-3. **VS Code** (`.vscode/codex/skills/`) - VS Code extension specific
-4. **JetBrains** (`.idea/codex/skills/`) - PhpStorm, IntelliJ IDEA, etc.
+| ID | Rule |
+|----|------|
+| INRT-001 | Directory conventions (`common`, `modules`, `pages`, `shadcn`) |
+| INRT-002 | Page components: `Page` suffix, default export |
+| INRT-003 | One component per file, PascalCase, function declarations |
+| INRT-004 | Wrap shadcn components; avoid direct app-wide imports |
+| INRT-005 | No barrel files; absolute aliased imports |
+| INRT-006 | Type page props with TypeScript interfaces |
+| INRT-007 | Use `useForm` for submissions; avoid raw axios/fetch |
+| INRT-008 | Use `usePage` for shared data; avoid prop drilling |
+| INRT-009 | Use `<Link>` for internal navigation; avoid plain `<a>` |
+| INRT-010 | Use partial reloads (`router.reload`) instead of full visits |
 
-Choose the location that best fits your workflow:
-- Use **project workspace** for project-specific customizations
-- Use **home directory** to share skills across all your Laravel projects
-- Use **editor-specific** locations if you work in a team with mixed editors
+### Inertia + Vue rules
+
+| ID | Rule |
+|----|------|
+| INRT-VUE-001 | Directory conventions |
+| INRT-VUE-002 | Page components: `Page` suffix, default export |
+| INRT-VUE-003 | One component per `.vue` file, `<script setup>` |
+| INRT-VUE-004 | Wrap third-party UI library components |
+| INRT-VUE-005 | No barrel files; absolute aliased imports |
+
+## Published structure
+
+```
+.ai/skills/laravel-best-practices/         # Laravel Boost — general skill
+  SKILL.md
+.ai/skills/inertia-development/            # Laravel Boost — Inertia React + Vue skill
+  SKILL.md
+
+.codex/skills/laravel-best-practices/      # Codex / project workspace
+  SKILL.md
+  references/
+    rulebook.json
+    laravel-best-practices-summary.md
+    inertia-react.md
+    inertia-react-summary.md
+    inertia-vue.md
+  scripts/
+    detect-laravel-context.php
+    review-diff.sh
+
+CLAUDE.md                                  # Claude Code adapter
+.github/copilot-instructions.md            # GitHub Copilot adapter
+AGENTS.md                                  # Generic agent adapter
+```

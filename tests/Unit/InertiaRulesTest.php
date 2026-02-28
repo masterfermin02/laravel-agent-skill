@@ -15,6 +15,13 @@ test('rulebook contains new Inertia rules', function () {
     expect($ids)->toContain('INRT-004');
     expect($ids)->toContain('INRT-005');
 
+    // React-specific Inertia rules (TypeScript, useForm, usePage)
+    expect($ids)->toContain('INRT-006');
+    expect($ids)->toContain('INRT-007');
+    expect($ids)->toContain('INRT-008');
+    expect($ids)->toContain('INRT-009');
+    expect($ids)->toContain('INRT-010');
+
     // Vue-specific Inertia rules should also be present
     expect($ids)->toContain('INRT-VUE-001');
     expect($ids)->toContain('INRT-VUE-002');

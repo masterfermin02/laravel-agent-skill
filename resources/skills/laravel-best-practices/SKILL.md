@@ -43,6 +43,17 @@ When you flag an issue, always include:
 - **No queries in Blade**: views must not query the database; eager load to avoid N+1.
 - **Chunk/stream large datasets**: avoid loading large tables into memory.
 
+## Frontend / Inertia + React principles
+When reviewing or generating Inertia React code, apply rules `INRT-001`–`INRT-008` from the rulebook.
+See **references/inertia-react.md** for the annotated directory structure and conventions.
+
+- **Directory structure**: `common` (shared primitives), `modules` (feature code), `pages` (Inertia-rendered), `shadcn` (generated components).
+- **Page components**: suffix with `Page`, use a default export (e.g. `PostsIndexPage.tsx`).
+- **Component files**: one component per `.tsx` file, PascalCase filenames, function declarations.
+- **Type page props**: define a TypeScript interface per page; use `usePage<SharedProps>()` for globally shared data.
+- **Form submissions**: use `useForm` from `@inertiajs/react`; avoid raw `fetch`/`axios` for Inertia-driven forms.
+- **Shared data**: access via `usePage()` rather than prop-drilling auth/flash data through every component layer.
+
 ## Workflow: Review
 When asked to review code:
 1) Identify the layer (Controller, Request, Model, Service/Action, Blade, etc.).

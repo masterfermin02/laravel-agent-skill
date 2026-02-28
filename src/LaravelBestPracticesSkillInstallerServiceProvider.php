@@ -42,6 +42,13 @@ class LaravelBestPracticesSkillInstallerServiceProvider extends ServiceProvider
         $agentsSource = __DIR__ . '/../resources/adapters/AGENTS.md';
         $agentsTarget = base_path('AGENTS.md');
 
+        // Laravel Boost skills (auto-discovered by boost:install, published to .ai/skills/)
+        $boostSkillSource = __DIR__ . '/../resources/boost/skills/laravel-best-practices';
+        $boostSkillTarget = base_path('.ai/skills/laravel-best-practices');
+
+        $boostInertiaSource = __DIR__ . '/../resources/boost/skills/inertia-development';
+        $boostInertiaTarget = base_path('.ai/skills/inertia-development');
+
         // Tag: lbpa-skill → .codex/skills/... (project workspace - primary)
         $this->publishes([
             $skillSource => $skillTarget,
@@ -85,12 +92,20 @@ class LaravelBestPracticesSkillInstallerServiceProvider extends ServiceProvider
             $agentsSource => $agentsTarget,
         ], 'lbpa-agents');
 
-        // Tag: lbpa-all → everything (all adapters + primary skill location)
+        // Tag: lbpa-boost → .ai/skills/ (Laravel Boost compatible — all Boost skills)
         $this->publishes([
-            $skillSource => $skillTarget,
-            $claudeSource => $claudeTarget,
-            $copilotSource => $copilotTarget,
-            $agentsSource => $agentsTarget,
+            $boostSkillSource  => $boostSkillTarget,
+            $boostInertiaSource => $boostInertiaTarget,
+        ], 'lbpa-boost');
+
+        // Tag: lbpa-all → everything (all adapters + primary skill location + boost)
+        $this->publishes([
+            $skillSource        => $skillTarget,
+            $claudeSource       => $claudeTarget,
+            $copilotSource      => $copilotTarget,
+            $agentsSource       => $agentsTarget,
+            $boostSkillSource   => $boostSkillTarget,
+            $boostInertiaSource => $boostInertiaTarget,
         ], 'lbpa-all');
     }
 }
