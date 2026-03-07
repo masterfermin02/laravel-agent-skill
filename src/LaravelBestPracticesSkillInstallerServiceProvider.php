@@ -25,7 +25,8 @@ class LaravelBestPracticesSkillInstallerServiceProvider extends ServiceProvider
         $skillTarget = base_path('.codex/skills/laravel-best-practices');
 
         // User home directory location (global/shared across projects)
-        $homeSkillTarget = $_SERVER['HOME'] . '/.codex/skills/laravel-best-practices';
+        $homeDir = $_SERVER['HOME'] ?? getenv('HOME') ?: getenv('USERPROFILE') ?: null;
+        $homeSkillTarget = $homeDir ? $homeDir . '/.codex/skills/laravel-best-practices' : null;
 
         // VS Code specific location
         $vscodeSkillTarget = base_path('.vscode/codex/skills/laravel-best-practices');
@@ -55,9 +56,11 @@ class LaravelBestPracticesSkillInstallerServiceProvider extends ServiceProvider
         ], 'lbpa-skill');
 
         // Tag: lbpa-skill-home → ~/.codex/skills/... (user home - global)
-        $this->publishes([
-            $skillSource => $homeSkillTarget,
-        ], 'lbpa-skill-home');
+        if ($homeSkillTarget) {
+            $this->publishes([
+                $skillSource => $homeSkillTarget,
+            ], 'lbpa-skill-home');
+        }
 
         // Tag: lbpa-skill-vscode → .vscode/codex/skills/... (VS Code specific)
         $this->publishes([
@@ -70,12 +73,13 @@ class LaravelBestPracticesSkillInstallerServiceProvider extends ServiceProvider
         ], 'lbpa-skill-jetbrains');
 
         // Tag: lbpa-skill-all → all skill locations
-        $this->publishes([
-            $skillSource => $skillTarget,
-            $skillSource => $homeSkillTarget,
-            $skillSource => $vscodeSkillTarget,
-            $skillSource => $jetbrainsSkillTarget,
-        ], 'lbpa-skill-all');
+        // Multiple publishes() calls with the same tag are merged by Laravel
+        $this->publishes([$skillSource => $skillTarget], 'lbpa-skill-all');
+        $this->publishes([$skillSource => $vscodeSkillTarget], 'lbpa-skill-all');
+        $this->publishes([$skillSource => $jetbrainsSkillTarget], 'lbpa-skill-all');
+        if ($homeSkillTarget) {
+            $this->publishes([$skillSource => $homeSkillTarget], 'lbpa-skill-all');
+        }
 
         // Tag: lbpa-claude → CLAUDE.md
         $this->publishes([
