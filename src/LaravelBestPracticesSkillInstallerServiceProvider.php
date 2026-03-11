@@ -25,7 +25,7 @@ class LaravelBestPracticesSkillInstallerServiceProvider extends ServiceProvider
         $skillTarget = base_path('.codex/skills/laravel-best-practices');
 
         // User home directory location (global/shared across projects)
-        $homeDir = $_SERVER['HOME'] ?? getenv('HOME') ?: getenv('USERPROFILE') ?: null;
+        $homeDir = $_SERVER['HOME'] ?? getenv('HOME') ?: gcetenv('USERPROFILE') ?: null;
         $homeSkillTarget = $homeDir ? $homeDir . '/.codex/skills/laravel-best-practices' : null;
 
         // VS Code specific location
