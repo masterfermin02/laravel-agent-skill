@@ -1,0 +1,82 @@
+[
+  {
+    "query": "hey so my UserController@store is like 180 lines — it's doing $request->validate(), creating the user, assigning roles, sending a welcome email and logging an audit event. my lead said to 'slim it down' but i'm not sure where each piece should go",
+    "should_trigger": true
+  },
+  {
+    "query": "should i use $request->validate() directly in the controller or always make a separate FormRequest class? we're a small team and it feels like overkill for simple endpoints",
+    "should_trigger": true
+  },
+  {
+    "query": "laravel telescope is showing hundreds of duplicate queries on our /orders page. i think it's because i'm doing $order->customer->name inside a foreach in my blade template. how do i fix this properly?",
+    "should_trigger": true
+  },
+  {
+    "query": "my colleague wrote env('STRIPE_SECRET') directly inside our PaymentService class. it works but something feels off — should this be changed, and if so, what's the right pattern?",
+    "should_trigger": true
+  },
+  {
+    "query": "in my inertia react app i'm using axios.post('/checkout', data) for form submission and then manually redirecting with router.visit(). a PR comment said to use useForm instead — why does it matter?",
+    "should_trigger": true
+  },
+  {
+    "query": "i have abort(403) checks scattered across 4 different controllers all checking if $user->role === 'admin'. is there a cleaner way to centralize authorization logic in laravel?",
+    "should_trigger": true
+  },
+  {
+    "query": "building a feature where users can submit a quote request: the controller needs to validate input, calculate pricing, check inventory, send a confirmation email and create a pdf. where should all this logic live?",
+    "should_trigger": true
+  },
+  {
+    "query": "our nightly job calls Product::all() and then loops through all 400k rows to recalculate prices. the server runs out of memory. what's the right laravel approach here?",
+    "should_trigger": true
+  },
+  {
+    "query": "i'm adding a new PostsIndexPage.vue for our inertia vue app — should the component use export default or script setup? and does the Page suffix matter?",
+    "should_trigger": true
+  },
+  {
+    "query": "can you review this laravel PR? the diff shows the controller doing DB::table('invoices')->where('user_id', auth()->id())->get() and then transforming the result into an array manually before returning json",
+    "should_trigger": true
+  },
+  {
+    "query": "setting up a github actions workflow for our node.js api — should i run tests before or after building the docker image, and do i need a separate job for linting?",
+    "should_trigger": false
+  },
+  {
+    "query": "migrating from mysql to postgres on our django app — what do i need to update in settings.py and are there any orm query differences i should watch out for?",
+    "should_trigger": false
+  },
+  {
+    "query": "in rails, my UsersController is getting fat. should i use concerns, service objects, or interactors to move the business logic out? our team is split on which pattern to use",
+    "should_trigger": false
+  },
+  {
+    "query": "my create-react-app (not inertia, just a standalone spa) has a huge bundle size on first load — how do i set up react.lazy and suspense for route-based code splitting?",
+    "should_trigger": false
+  },
+  {
+    "query": "i have a standalone php script (not laravel, just plain php 8.2) that reads a 2 million row csv and inserts into mysql. it's timing out. should i use generators or just process it in chunks of 500?",
+    "should_trigger": false
+  },
+  {
+    "query": "structuring a next.js 14 app with the app router — should feature components live in /app alongside the page.tsx files, or should i keep a separate /components directory at the root?",
+    "should_trigger": false
+  },
+  {
+    "query": "i'm getting a segfault in my rust program when i call drop() on a Box<dyn Trait> inside an Arc — is this a vtable issue or am i misusing the ownership model?",
+    "should_trigger": false
+  },
+  {
+    "query": "writing unit tests in go for a webhook processor microservice — should i use testify/mock or the standard library's testing package? also how do i test http handler functions?",
+    "should_trigger": false
+  },
+  {
+    "query": "need a bash script that finds all .log files in /var/log older than 30 days, compresses them with gzip, and deletes the originals. should run as a cron job nightly",
+    "should_trigger": false
+  },
+  {
+    "query": "our angular app has a SharedModule that's imported everywhere and it's causing slow initial load times. should i convert to standalone components or use lazy-loaded feature modules instead?",
+    "should_trigger": false
+  }
+]

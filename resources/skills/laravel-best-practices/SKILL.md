@@ -1,15 +1,18 @@
 ---
 name: laravel-best-practices
 description: >
-  Guide for writing, reviewing, and testing Laravel applications the right way.
-  Use this skill whenever you're implementing features, refactoring controllers,
-  services, FormRequests, models, jobs, events, policies, or observers — or when
-  reviewing PRs, diffs, or whole files in a Laravel codebase. Also applies to
-  Inertia frontends (React or Vue). Trigger this skill any time someone mentions
-  Laravel controllers, services, FormRequests, Eloquent models, Blade templates,
-  N+1 queries, validation, authorization, naming conventions, env() calls,
-  Inertia, shadcn, useForm, or asks to "follow best practices" in a PHP/Laravel
-  context — even if they don't explicitly say "best practices".
+  Laravel framework skill for writing, reviewing, and testing PHP applications
+  built with Laravel. Use whenever working on Laravel-specific patterns:
+  controllers, FormRequests, Eloquent models, service/action classes, Blade
+  templates, jobs, events, policies, observers, or Artisan commands. Also
+  applies to Inertia frontends (React or Vue) embedded inside a Laravel project
+  — covering useForm, usePage, Link navigation, partial reloads, page component
+  naming (PostsIndexPage), and shadcn wrapper conventions. Trigger any time
+  someone mentions Laravel, Eloquent, Artisan, Blade, FormRequest, Inertia
+  within Laravel, N+1 queries in a Laravel app, inline controller validation, where
+  business logic should live in a Laravel controller, or asks to follow best
+  practices in a Laravel codebase. Does not apply to plain PHP scripts without
+  Laravel, Rails, Django, standalone Next.js, or non-Laravel frameworks.
 metadata:
   installed_path: .codex/skills/laravel-best-practices
   outputs:
