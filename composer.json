@@ -1,6 +1,6 @@
 {
     "name": "fperdomo/laravel-agent-skill",
-    "description": "Publishes a Codex-friendly agent skill: skills/laravel-best-practices",
+    "description": "Laravel Best Practices skill for Claude Code and Codex — enforces SRP, FormRequests, service classes, Eloquent, Inertia (React + Vue) conventions.",
     "type": "library",
     "license": "MIT",
     "require": {

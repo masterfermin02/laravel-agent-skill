@@ -1,0 +1,12 @@
+{
+  "name": "laravel-best-practices",
+  "description": "Laravel Best Practices skill for Claude Code — enforces SRP, skinny controllers, FormRequests, service/action classes, Eloquent patterns, Blade/N+1 rules, Policies, naming conventions, and Inertia (React + Vue) conventions.",
+  "version": "1.0.6",
+  "author": {
+    "name": "fperdomo",
+    "url": "https://github.com/fperdomo"
+  },
+  "homepage": "https://github.com/fperdomo/laravel-agent-skill",
+  "repository": "https://github.com/fperdomo/laravel-agent-skill",
+  "license": "MIT"
+}

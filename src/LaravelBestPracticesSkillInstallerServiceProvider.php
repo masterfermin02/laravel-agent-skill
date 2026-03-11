@@ -19,7 +19,7 @@ class LaravelBestPracticesSkillInstallerServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $skillSource = __DIR__ . '/../resources/skills/laravel-best-practices';
+        $skillSource = __DIR__ . '/../skills/laravel-best-practices';
 
         // Primary project workspace location (most common)
         $skillTarget = base_path('.codex/skills/laravel-best-practices');
