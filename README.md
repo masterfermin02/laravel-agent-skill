@@ -8,6 +8,12 @@ This package publishes an AI agent skill covering Laravel best practices — inc
 composer require fperdomo/laravel-agent-skill --dev
 ```
 
+## Install the skill with claude code
+
+```bahs
+ /plugin install https://github.com/masterfermin02/laravel-agent-skill
+```
+
 ## Usage
 
 ### Quick install — everything
