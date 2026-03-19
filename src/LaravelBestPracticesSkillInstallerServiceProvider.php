@@ -19,6 +19,13 @@ class LaravelBestPracticesSkillInstallerServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        $this->bootLaravelBestPracticesSkill();
+        $this->bootPhpRectorSkill();
+        $this->bootLaravelRectorSkill();
+    }
+
+    private function bootLaravelBestPracticesSkill(): void
+    {
         $skillSource = __DIR__ . '/../skills/laravel-best-practices';
 
         // Primary project workspace location (most common)
@@ -111,5 +118,61 @@ class LaravelBestPracticesSkillInstallerServiceProvider extends ServiceProvider
             $boostSkillSource   => $boostSkillTarget,
             $boostInertiaSource => $boostInertiaTarget,
         ], 'lbpa-all');
+    }
+
+    private function bootPhpRectorSkill(): void
+    {
+        $skillSource = __DIR__ . '/../skills/php-update-with-rector';
+        $homeDir = $_SERVER['HOME'] ?? getenv('HOME') ?: getenv('USERPROFILE') ?: null;
+
+        // Tag: rector-php → .codex/skills/php-update-with-rector (project workspace)
+        $this->publishes([
+            $skillSource => base_path('.codex/skills/php-update-with-rector'),
+        ], 'rector-php');
+
+        // Tag: rector-php-home → ~/.codex/skills/php-update-with-rector (global)
+        if ($homeDir) {
+            $this->publishes([
+                $skillSource => $homeDir . '/.codex/skills/php-update-with-rector',
+            ], 'rector-php-home');
+        }
+
+        // Tag: rector-php-vscode → .vscode/codex/skills/php-update-with-rector
+        $this->publishes([
+            $skillSource => base_path('.vscode/codex/skills/php-update-with-rector'),
+        ], 'rector-php-vscode');
+
+        // Tag: rector-php-jetbrains → .idea/codex/skills/php-update-with-rector
+        $this->publishes([
+            $skillSource => base_path('.idea/codex/skills/php-update-with-rector'),
+        ], 'rector-php-jetbrains');
+    }
+
+    private function bootLaravelRectorSkill(): void
+    {
+        $skillSource = __DIR__ . '/../skills/laravel-update-with-rector';
+        $homeDir = $_SERVER['HOME'] ?? getenv('HOME') ?: getenv('USERPROFILE') ?: null;
+
+        // Tag: rector-laravel → .codex/skills/laravel-update-with-rector (project workspace)
+        $this->publishes([
+            $skillSource => base_path('.codex/skills/laravel-update-with-rector'),
+        ], 'rector-laravel');
+
+        // Tag: rector-laravel-home → ~/.codex/skills/laravel-update-with-rector (global)
+        if ($homeDir) {
+            $this->publishes([
+                $skillSource => $homeDir . '/.codex/skills/laravel-update-with-rector',
+            ], 'rector-laravel-home');
+        }
+
+        // Tag: rector-laravel-vscode → .vscode/codex/skills/laravel-update-with-rector
+        $this->publishes([
+            $skillSource => base_path('.vscode/codex/skills/laravel-update-with-rector'),
+        ], 'rector-laravel-vscode');
+
+        // Tag: rector-laravel-jetbrains → .idea/codex/skills/laravel-update-with-rector
+        $this->publishes([
+            $skillSource => base_path('.idea/codex/skills/laravel-update-with-rector'),
+        ], 'rector-laravel-jetbrains');
     }
 }

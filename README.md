@@ -94,6 +94,98 @@ php artisan vendor:publish --tag=lbpa-agents    # → AGENTS.md
 php artisan vendor:publish --tag=lbpa-all
 ```
 
+---
+
+## PHP Upgrade with Rector Skill
+
+Upgrades a PHP project to a newer PHP version using Rector.
+
+### Install
+
+**Project workspace:**
+```bash
+php artisan vendor:publish --tag=rector-php
+# Publishes to: .codex/skills/php-update-with-rector/
+```
+
+**User home directory (global):**
+```bash
+php artisan vendor:publish --tag=rector-php-home
+# Publishes to: ~/.codex/skills/php-update-with-rector/
+```
+
+**VS Code:**
+```bash
+php artisan vendor:publish --tag=rector-php-vscode
+# Publishes to: .vscode/codex/skills/php-update-with-rector/
+```
+
+**JetBrains IDEs:**
+```bash
+php artisan vendor:publish --tag=rector-php-jetbrains
+# Publishes to: .idea/codex/skills/php-update-with-rector/
+```
+
+### Install via skills.sh
+
+```bash
+npx skills add fperdomo/laravel-agent-skill
+```
+
+### Install via skills.laravel.cloud
+
+```bash
+composer require laravel/boost --dev
+php artisan boost:add-skill fperdomo/laravel-agent-skill
+```
+
+---
+
+## Laravel Upgrade with Rector Skill
+
+Upgrades a Laravel application or package to a newer Laravel version (up to Laravel 13) using Rector and `driftingly/rector-laravel`.
+
+### Install
+
+**Project workspace:**
+```bash
+php artisan vendor:publish --tag=rector-laravel
+# Publishes to: .codex/skills/laravel-update-with-rector/
+```
+
+**User home directory (global):**
+```bash
+php artisan vendor:publish --tag=rector-laravel-home
+# Publishes to: ~/.codex/skills/laravel-update-with-rector/
+```
+
+**VS Code:**
+```bash
+php artisan vendor:publish --tag=rector-laravel-vscode
+# Publishes to: .vscode/codex/skills/laravel-update-with-rector/
+```
+
+**JetBrains IDEs:**
+```bash
+php artisan vendor:publish --tag=rector-laravel-jetbrains
+# Publishes to: .idea/codex/skills/laravel-update-with-rector/
+```
+
+### Install via skills.sh
+
+```bash
+npx skills add fperdomo/laravel-agent-skill
+```
+
+### Install via skills.laravel.cloud
+
+```bash
+composer require laravel/boost --dev
+php artisan boost:add-skill fperdomo/laravel-agent-skill
+```
+
+---
+
 ## What's included
 
 ### Backend rules
