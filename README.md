@@ -4,14 +4,44 @@ This package publishes an AI agent skill covering Laravel best practices — inc
 
 ## Install
 
+### Via Laravel Boost (recommended)
+
+Install individual skills directly — no Composer package required:
+
 ```bash
-composer require fperdomo/laravel-agent-skill --dev
+# Laravel best practices skill
+php artisan boost:add-skill masterfermin02/laravel-agent-skill --skill laravel-best-practices
+
+# PHP upgrade with Rector skill
+php artisan boost:add-skill masterfermin02/laravel-agent-skill --skill php-update-with-rector
+
+# Laravel upgrade with Rector skill
+php artisan boost:add-skill masterfermin02/laravel-agent-skill --skill laravel-update-with-rector
 ```
 
-## Install the skill with claude code
+### Via npx skills
 
-```bahs
- /plugin install https://github.com/masterfermin02/laravel-agent-skill
+```bash
+# Laravel best practices skill
+npx skills add https://github.com/masterfermin02/laravel-agent-skill --skill laravel-best-practices
+
+# PHP upgrade with Rector skill
+npx skills add https://github.com/masterfermin02/laravel-agent-skill --skill php-update-with-rector
+
+# Laravel upgrade with Rector skill
+npx skills add https://github.com/masterfermin02/laravel-agent-skill --skill laravel-update-with-rector
+```
+
+### Via Claude Code plugin
+
+```bash
+/plugin install https://github.com/masterfermin02/laravel-agent-skill
+```
+
+### Via Composer
+
+```bash
+composer require fperdomo/laravel-agent-skill --dev
 ```
 
 ## Usage
@@ -25,21 +55,9 @@ php artisan lbpa:install
 php artisan lbpa:install --force
 ```
 
-### Laravel Boost (recommended)
-
-If your project uses [Laravel Boost](https://laravel.com/docs/12.x/boost), install individual skills directly:
+### Laravel Boost — install all at once
 
 ```bash
-# Laravel best practices skill
-php artisan boost:add-skill masterfermin02/laravel-agent-skill --skill laravel-best-practices
-
-# PHP upgrade with Rector skill
-php artisan boost:add-skill masterfermin02/laravel-agent-skill --skill php-update-with-rector
-
-# Laravel upgrade with Rector skill
-php artisan boost:add-skill masterfermin02/laravel-agent-skill --skill laravel-update-with-rector
-
-# Or install everything at once
 php artisan boost:install
 ```
 
@@ -136,10 +154,15 @@ php artisan vendor:publish --tag=rector-php-jetbrains
 # Publishes to: .idea/codex/skills/php-update-with-rector/
 ```
 
-### Install via skills.laravel.cloud
+### Install via npx skills
 
 ```bash
-composer require laravel/boost --dev
+npx skills add https://github.com/masterfermin02/laravel-agent-skill --skill php-update-with-rector
+```
+
+### Install via Laravel Boost
+
+```bash
 php artisan boost:add-skill masterfermin02/laravel-agent-skill --skill php-update-with-rector
 ```
 
@@ -175,10 +198,15 @@ php artisan vendor:publish --tag=rector-laravel-jetbrains
 # Publishes to: .idea/codex/skills/laravel-update-with-rector/
 ```
 
-### Install via skills.laravel.cloud
+### Install via npx skills
 
 ```bash
-composer require laravel/boost --dev
+npx skills add https://github.com/masterfermin02/laravel-agent-skill --skill laravel-update-with-rector
+```
+
+### Install via Laravel Boost
+
+```bash
 php artisan boost:add-skill masterfermin02/laravel-agent-skill --skill laravel-update-with-rector
 ```
 
